@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Details - Fintech CRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+       <div class="brand">
+            <div class="badge-brand"> <img src="assets/images/sodetsologo.jpg" width="50" height="50"></div>
+            <div>
+                <div class="fw-bold company">SODETSO CRM</div>
+                <small class="company">Management System</small>
+            </div>
+        </div>
+
+        <nav class="nav-section">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+            </a>
+            <a href="leads.html" class="nav-link active">
+                <i class="fas fa-users"></i>
+                Leads
+            </a>
+            <a href="interactions.html" class="nav-link">
+                <i class="fas fa-comments"></i>
+                Interactions
+            </a>
+            <a href="deals.html" class="nav-link">
+                <i class="fas fa-handshake"></i>
+                Deals
+            </a>
+            <a href="support.html" class="nav-link">
+                <i class="fas fa-headset"></i>
+                Support
+            </a>
+            <a href="users.html" class="nav-link">
+                <i class="fas fa-user-cog"></i>
+                Users
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="topbar">
+            <button class="btn btn-outline-secondary me-2" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <h1 class="page-title" id="contactName">Contact Details</h1>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Contact Detail Tabs -->
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="contactTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">
+                                <i class="fas fa-user me-2"></i>
+                                Profile
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="activities-tab" data-bs-toggle="tab" data-bs-target="#activities" type="button" role="tab" aria-controls="activities" aria-selected="false">
+                                <i class="fas fa-comments me-2"></i>
+                                Activities
+                                <span class="badge bg-primary ms-2" id="activitiesCount">0</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tasks-tab" data-bs-toggle="tab" data-bs-target="#tasks" type="button" role="tab" aria-controls="tasks" aria-selected="false">
+                                <i class="fas fa-tasks me-2"></i>
+                                Tasks
+                                <span class="badge bg-primary ms-2" id="tasksCount">0</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab" aria-controls="support" aria-selected="false">
+                                <i class="fas fa-headset me-2"></i>
+                                Support Tickets
+                                <span class="badge bg-primary ms-2" id="supportCount">0</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="contactTabContent">
+                        <!-- Profile Tab -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <!-- Profile Header Card -->
+                            <div class="card mb-4 shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                                <div class="card-body text-center py-4">
+                                    <div class="avatar-circle mx-auto mb-3" style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h3 class="card-title mb-1" id="contactNameDisplay"></h3>
+                                    <p class="card-text mb-2" id="contactJobTitle"></p>
+                                    <div class="d-flex justify-content-center gap-3">
+                                        <small><i class="fas fa-building me-1"></i><span id="contactInstitution"></span></small>
+                                        <small><i class="fas fa-map-marker-alt me-1"></i><span id="contactLocation"></span></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex justify-content-end mb-4">
+                                <button class="btn btn-outline-primary me-2" onclick="editContact()">
+                                    <i class="fas fa-edit me-1"></i> Edit Contact
+                                </button>
+                                <button class="btn btn-outline-danger" onclick="deleteContact()">
+                                    <i class="fas fa-trash me-1"></i> Delete Contact
+                                </button>
+                            </div>
+
+                            <!-- Contact Details Cards -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-header bg-light">
+                                            <h6 class="mb-0"><i class="fas fa-phone text-primary me-2"></i>Contact Information</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label class="form-label text-muted small mb-1">Primary Phone</label>
+                                                <p class="mb-0 fw-semibold" id="contactPrimaryPhone"></p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label text-muted small mb-1">Secondary Phone</label>
+                                                <p class="mb-0 fw-semibold" id="contactSecondaryPhone"></p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label text-muted small mb-1">Email</label>
+                                                <p class="mb-0 fw-semibold" id="contactEmail"></p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label text-muted small mb-1">WhatsApp</label>
+                                                <p class="mb-0 fw-semibold" id="contactWhatsapp"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-header bg-light">
+                                            <h6 class="mb-0"><i class="fas fa-bullhorn text-success me-2"></i>Marketing & Details</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label class="form-label text-muted small mb-1">Marketing Channel</label>
+                                                <p class="mb-0 fw-semibold" id="contactMarketingChannel"></p>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label text-muted small mb-1">Description</label>
+                                                <p class="mb-0" id="contactDescription"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activities Tab -->
+                        <div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="activities-tab">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0"><i class="fas fa-comments text-primary me-2"></i>Activities</h5>
+                                <span class="badge bg-primary fs-6" id="activitiesCount">0</span>
+                            </div>
+                            <div class="card shadow-sm">
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th><i class="fas fa-tag me-1"></i>Type</th>
+                                                    <th><i class="fas fa-heading me-1"></i>Title</th>
+                                                    <th><i class="fas fa-calendar me-1"></i>Date</th>
+                                                    <th><i class="fas fa-align-left me-1"></i>Description</th>
+                                                    <th><i class="fas fa-cogs me-1"></i>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="activitiesTableBody">
+                                                <!-- Activities will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tasks Tab -->
+                        <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0"><i class="fas fa-tasks text-warning me-2"></i>Tasks</h5>
+                                <span class="badge bg-warning fs-6" id="tasksCount">0</span>
+                            </div>
+                            <div class="card shadow-sm">
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th><i class="fas fa-heading me-1"></i>Title</th>
+                                                    <th><i class="fas fa-user me-1"></i>Assigned To</th>
+                                                    <th><i class="fas fa-calendar-alt me-1"></i>Due Date</th>
+                                                    <th><i class="fas fa-info-circle me-1"></i>Status</th>
+                                                    <th><i class="fas fa-cogs me-1"></i>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tasksTableBody">
+                                                <!-- Tasks will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Support Tickets Tab -->
+                        <div class="tab-pane fade" id="support" role="tabpanel" aria-labelledby="support-tab">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0"><i class="fas fa-headset text-danger me-2"></i>Support Tickets</h5>
+                                <span class="badge bg-danger fs-6" id="supportCount">0</span>
+                            </div>
+                            <div class="card shadow-sm">
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th><i class="fas fa-question-circle me-1"></i>Subject</th>
+                                                    <th><i class="fas fa-info-circle me-1"></i>Status</th>
+                                                    <th><i class="fas fa-exclamation-triangle me-1"></i>Priority</th>
+                                                    <th><i class="fas fa-calendar me-1"></i>Created</th>
+                                                    <th><i class="fas fa-cogs me-1"></i>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="supportTableBody">
+                                                <!-- Support tickets will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div>&copy; 2024 Fintech CRM. All rights reserved.</div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        let currentContactId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentContactId = urlParams.get('id');
+            if (currentContactId) {
+                loadContactDetails(currentContactId);
+            } else {
+                alert('No contact ID provided');
+                window.location.href = 'leads.html';
+            }
+        });
+
+        function loadContactDetails(id) {
+            const contacts = store.get('contacts');
+            const contact = contacts.find(c => c.id === id);
+            if (!contact) {
+                alert('Contact not found');
+                window.location.href = 'leads.html';
+                return;
+            }
+
+            // Update profile
+            document.getElementById('contactName').textContent = contact.name;
+            document.getElementById('contactNameDisplay').textContent = contact.name;
+            document.getElementById('contactJobTitle').textContent = contact.jobTitle || 'N/A';
+            document.getElementById('contactLocation').textContent = contact.location || 'N/A';
+            document.getElementById('contactInstitution').textContent = contact.institutionName || 'N/A';
+            document.getElementById('contactPrimaryPhone').textContent = contact.primaryPhone || 'N/A';
+            document.getElementById('contactSecondaryPhone').textContent = contact.secondaryPhone || 'N/A';
+            document.getElementById('contactEmail').textContent = contact.personalEmail || 'N/A';
+            document.getElementById('contactWhatsapp').textContent = contact.whatsapp || 'N/A';
+            document.getElementById('contactMarketingChannel').textContent = contact.marketingChannel || 'N/A';
+            document.getElementById('contactDescription').textContent = contact.description || 'N/A';
+
+            // Load related activities
+            const activities = store.get('activities').filter(a => a.contact === contact.name);
+            document.getElementById('activitiesCount').textContent = activities.length;
+            const activitiesTableBody = document.getElementById('activitiesTableBody');
+            activitiesTableBody.innerHTML = activities.map(activity => `
+                <tr>
+                    <td><span class="badge bg-secondary">${activity.type}</span></td>
+                    <td class="fw-semibold">${activity.title}</td>
+                    <td>${new Date(activity.dateTime).toLocaleDateString()}</td>
+                    <td>${activity.description || ''}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editActivity('${activity.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteActivity('${activity.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Load related tasks
+            const tasks = store.get('tasks').filter(t => t.assignedTo === contact.name);
+            document.getElementById('tasksCount').textContent = tasks.length;
+            const tasksTableBody = document.getElementById('tasksTableBody');
+            tasksTableBody.innerHTML = tasks.map(task => `
+                <tr>
+                    <td class="fw-semibold">${task.title}</td>
+                    <td>${task.assignedTo}</td>
+                    <td>${new Date(task.dueDate).toLocaleDateString()}</td>
+                    <td><span class="badge bg-${task.status === 'completed' ? 'success' : task.status === 'in-progress' ? 'primary' : 'warning'}">${task.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editTask('${task.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteTask('${task.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Load related support tickets
+            const supportTickets = store.get('supportTickets').filter(s => s.contactName === contact.name);
+            document.getElementById('supportCount').textContent = supportTickets.length;
+            const supportTableBody = document.getElementById('supportTableBody');
+            supportTableBody.innerHTML = supportTickets.map(ticket => `
+                <tr>
+                    <td class="fw-semibold">${ticket.subject}</td>
+                    <td><span class="badge bg-${ticket.status === 'open' ? 'danger' : ticket.status === 'in-progress' ? 'warning' : 'success'}">${ticket.status}</span></td>
+                    <td><span class="badge bg-${ticket.priority === 'high' ? 'danger' : ticket.priority === 'medium' ? 'warning' : 'secondary'}">${ticket.priority}</span></td>
+                    <td>${new Date(ticket.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editSupportTicket('${ticket.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteSupportTicket('${ticket.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function editContact() {
+            // Redirect to edit mode or open modal
+            window.location.href = `leads.html?editContact=${currentContactId}`;
+        }
+
+        function deleteContact() {
+            if (confirm('Are you sure you want to delete this contact?')) {
+                const contacts = store.get('contacts');
+                const updatedContacts = contacts.filter(c => c.id !== currentContactId);
+                store.set('contacts', updatedContacts);
+                alert('Contact deleted');
+                window.location.href = 'leads.html';
+            }
+        }
+
+        function editActivity(id) {
+            window.location.href = `interactions.html?editActivity=${id}`;
+        }
+
+        function deleteActivity(id) {
+            if (confirm('Are you sure you want to delete this activity?')) {
+                const activities = store.get('activities');
+                const updatedActivities = activities.filter(a => a.id !== id);
+                store.set('activities', updatedActivities);
+                loadContactDetails(currentContactId);
+            }
+        }
+
+        function editTask(id) {
+            window.location.href = `interactions.html?editTask=${id}`;
+        }
+
+        function deleteTask(id) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                const tasks = store.get('tasks');
+                const updatedTasks = tasks.filter(t => t.id !== id);
+                store.set('tasks', updatedTasks);
+                loadContactDetails(currentContactId);
+            }
+        }
+
+        function editSupportTicket(id) {
+            window.location.href = `support.html?editTicket=${id}`;
+        }
+
+        function deleteSupportTicket(id) {
+            if (confirm('Are you sure you want to delete this support ticket?')) {
+                const supportTickets = store.get('supportTickets');
+                const updatedTickets = supportTickets.filter(t => t.id !== id);
+                store.set('supportTickets', updatedTickets);
+                loadContactDetails(currentContactId);
+            }
+        }
+    </script>
+</body>
+</html>

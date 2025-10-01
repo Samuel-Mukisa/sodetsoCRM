@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintech CRM - Create Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+      <div class="brand">
+            <div class="badge-brand"> <img src="assets/images/sodetsologo.jpg" width="50" height="50"></div>
+            <div>
+                <div class="fw-bold company">SODETSO CRM</div>
+                <small class="company">Management System</small>
+            </div>
+        </div>
+
+    <nav class="nav-section">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+      <a href="leads.html" class="nav-link">
+        <i class="fas fa-users"></i>
+        Leads
+      </a>
+      <a href="interactions.html" class="nav-link">
+        <i class="fas fa-comments"></i>
+        Interactions
+      </a>
+      <a href="deals.html" class="nav-link">
+        <i class="fas fa-handshake"></i>
+        Deals
+      </a>
+      <a href="documents.html" class="nav-link active">
+        <i class="fas fa-file-alt"></i>
+        Documents
+      </a>
+      <a href="support.html" class="nav-link">
+        <i class="fas fa-headset"></i>
+        Support
+      </a>
+      <a href="users.html" class="nav-link">
+        <i class="fas fa-user-cog"></i>
+        Users
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="topbar">
+      <h1 class="page-title" id="pageTitle">Upload Document</h1>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="card">
+        <div class="card-body">
+          <form onsubmit="handleDocumentForm(event)">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="mb-3">Document Information</h5>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="form-label">Document Title *</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter document title" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Document Type/Category *</label>
+                    <select class="form-select" name="documentType" required>
+                      <option value="">Select Type</option>
+                      <option value="Financial Proposals">Financial Proposals</option>
+                      <option value="Contracts & Agreements">Contracts & Agreements</option>
+                      <option value="KYC Documents">KYC Documents</option>
+                      <option value="Identity Documents">Identity Documents</option>
+                      <option value="Proof of Address">Proof of Address</option>
+                      <option value="Bank Statements">Bank Statements</option>
+                      <option value="Tax Returns">Tax Returns</option>
+                      <option value="Financial Statements">Financial Statements</option>
+                      <option value="Licenses & Permits">Licenses & Permits</option>
+                      <option value="Correspondence">Correspondence</option>
+                      <option value="Presentations">Presentations</option>
+                      <option value="Reports">Reports</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-4">
+                    <label class="form-label">Related Contact</label>
+                    <select class="form-select" name="relatedContact">
+                      <option value="">Select Contact</option>
+                      <!-- Contacts will be populated by JavaScript -->
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Related Institution</label>
+                    <select class="form-select" name="relatedInstitution">
+                      <option value="">Select Institution</option>
+                      <!-- Institutions will be populated by JavaScript -->
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Related Deal</label>
+                    <select class="form-select" name="relatedDeal">
+                      <option value="">Select Deal</option>
+                      <!-- Deals will be populated by JavaScript -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-4">
+                    <label class="form-label">Document Status *</label>
+                    <select class="form-select" name="status" required>
+                      <option value="Draft">Draft</option>
+                      <option value="Pending Review">Pending Review</option>
+                      <option value="Approved">Approved</option>
+                      <option value="Signed">Signed</option>
+                      <option value="Expired">Expired</option>
+                      <option value="Archived">Archived</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Access Permissions *</label>
+                    <select class="form-select" name="accessPermissions" required>
+                      <option value="Private">Private</option>
+                      <option value="Team">Team</option>
+                      <option value="Public">Public</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Version Number</label>
+                    <input type="text" class="form-control" name="versionNumber" placeholder="1.0" value="1.0">
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Signature Status</label>
+                    <select class="form-select" name="signatureStatus">
+                      <option value="Unsigned">Unsigned</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Signed">Signed</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Signature Date</label>
+                    <input type="date" class="form-control" name="signatureDate">
+                  </div>
+                </div>
+
+                <div class="mt-3">
+                  <label class="form-label">Signed By</label>
+                  <input type="text" class="form-control" name="signedBy" placeholder="Name of person who signed">
+                </div>
+
+                <div class="mt-3">
+                  <label class="form-label">Tags/Keywords</label>
+                  <input type="text" class="form-control" name="tags" placeholder="Enter tags separated by commas">
+                </div>
+
+                <div class="mt-3">
+                  <label class="form-label">Description/Notes</label>
+                  <textarea class="form-control" name="description" rows="3" placeholder="Additional notes about the document..."></textarea>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5 class="mb-3">File Information</h5>
+
+                <div class="mb-3">
+                  <label class="form-label">File Upload *</label>
+                  <input type="file" class="form-control" name="file" id="fileInput" required>
+                  <small class="text-muted">Supported formats: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT, JPG, PNG</small>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">File Name</label>
+                  <input type="text" class="form-control" name="fileName" id="fileName" readonly>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">File Type</label>
+                  <input type="text" class="form-control" name="fileType" id="fileType" readonly>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">File Size</label>
+                  <input type="text" class="form-control" name="fileSize" id="fileSize" readonly>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Expiry Date</label>
+                  <input type="date" class="form-control" name="expiryDate">
+                  <small class="text-muted">For time-sensitive documents</small>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Uploaded By</label>
+                  <input type="text" class="form-control" name="uploadedBy" value="Current User" readonly>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Upload Date</label>
+                  <input type="date" class="form-control" name="uploadDate" id="uploadDate" readonly>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+              <button type="submit" class="btn btn-brand">
+                <i class="fas fa-save me-1"></i>
+                Save Document
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="window.location.href='documents.html'">
+                <i class="fas fa-times me-1"></i>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>&copy; 2024 Fintech CRM. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    let editingDocument = null;
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Populate dropdowns
+      populateDropdowns();
+
+      // Set upload date
+      document.getElementById('uploadDate').value = new Date().toISOString().split('T')[0];
+
+      // Handle file input changes
+      document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+      // Check if editing
+      const urlParams = new URLSearchParams(window.location.search);
+      const editId = urlParams.get('edit');
+      if (editId) {
+        loadDocumentForEdit(editId);
+      }
+    });
+
+    function populateDropdowns() {
+      const contactSelect = document.querySelector('select[name="relatedContact"]');
+      const institutionSelect = document.querySelector('select[name="relatedInstitution"]');
+      const dealSelect = document.querySelector('select[name="relatedDeal"]');
+
+      const contacts = store.get('contacts') || [];
+      const institutions = store.get('institutions') || [];
+      const deals = store.get('deals') || [];
+
+      contactSelect.innerHTML = '<option value="">Select Contact</option>' +
+        contacts.map(contact => `<option value="${contact.name}">${contact.name}</option>`).join('');
+
+      institutionSelect.innerHTML = '<option value="">Select Institution</option>' +
+        institutions.map(inst => `<option value="${inst.name}">${inst.name}</option>`).join('');
+
+      dealSelect.innerHTML = '<option value="">Select Deal</option>' +
+        deals.map(deal => `<option value="${deal.name}">${deal.name}</option>`).join('');
+    }
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        document.getElementById('fileName').value = file.name;
+        document.getElementById('fileType').value = file.name.split('.').pop().toUpperCase();
+        document.getElementById('fileSize').value = formatFileSize(file.size);
+      }
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function loadDocumentForEdit(id) {
+      const documents = store.get('documents') || [];
+      const doc = documents.find(d => d.id === id);
+      if (!doc) {
+        showToast('Document not found', 'error');
+        window.location.href = 'documents.html';
+        return;
+      }
+
+      editingDocument = doc;
+      document.getElementById('pageTitle').textContent = 'Edit Document';
+
+      // Populate form fields
+      Object.keys(doc).forEach(key => {
+        const element = document.querySelector(`[name="${key}"]`);
+        if (element) {
+          if (element.type === 'checkbox') {
+            element.checked = doc[key];
+          } else if (element.type === 'date' && doc[key]) {
+            element.value = new Date(doc[key]).toISOString().split('T')[0];
+          } else {
+            element.value = doc[key];
+          }
+        }
+      });
+
+      // Handle related fields
+      if (doc.relatedTo) {
+        // Try to determine which related field this belongs to
+        const contacts = store.get('contacts') || [];
+        const institutions = store.get('institutions') || [];
+        const deals = store.get('deals') || [];
+
+        if (contacts.some(c => c.name === doc.relatedTo)) {
+          document.querySelector('select[name="relatedContact"]').value = doc.relatedTo;
+        } else if (institutions.some(i => i.name === doc.relatedTo)) {
+          document.querySelector('select[name="relatedInstitution"]').value = doc.relatedTo;
+        } else if (deals.some(d => d.name === doc.relatedTo)) {
+          document.querySelector('select[name="relatedDeal"]').value = doc.relatedTo;
+        }
+      }
+
+      // Make file input optional for editing
+      document.getElementById('fileInput').removeAttribute('required');
+    }
+
+    function handleDocumentForm(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+
+      // Determine related to
+      let relatedTo = '';
+      if (formData.get('relatedContact')) relatedTo = formData.get('relatedContact');
+      else if (formData.get('relatedInstitution')) relatedTo = formData.get('relatedInstitution');
+      else if (formData.get('relatedDeal')) relatedTo = formData.get('relatedDeal');
+
+      const document = {
+        title: formData.get('title'),
+        documentType: formData.get('documentType'),
+        relatedTo: relatedTo,
+        fileName: formData.get('fileName'),
+        fileType: formData.get('fileType'),
+        fileSize: parseFileSize(formData.get('fileSize')),
+        fileStorageLocation: formData.get('file') ? URL.createObjectURL(formData.get('file')) : (editingDocument ? editingDocument.fileStorageLocation : ''),
+        versionNumber: formData.get('versionNumber'),
+        status: formData.get('status'),
+        uploadedBy: formData.get('uploadedBy'),
+        uploadDate: formData.get('uploadDate'),
+        lastModifiedBy: 'Current User',
+        modifiedDate: new Date().toISOString(),
+        expiryDate: formData.get('expiryDate'),
+        description: formData.get('description'),
+        tags: formData.get('tags'),
+        accessPermissions: formData.get('accessPermissions'),
+        signatureStatus: formData.get('signatureStatus'),
+        signatureDate: formData.get('signatureDate'),
+        signedBy: formData.get('signedBy')
+      };
+
+      if (editingDocument) {
+        store.update('documents', editingDocument.id, document);
+        showToast('Document updated successfully');
+      } else {
+        store.add('documents', document);
+        showToast('Document uploaded successfully');
+      }
+
+      window.location.href = 'documents.html';
+    }
+
+    function parseFileSize(sizeString) {
+      if (!sizeString) return 0;
+      const match = sizeString.match(/(\d+(?:\.\d+)?)\s*(Bytes|KB|MB|GB)/);
+      if (!match) return 0;
+
+      const value = parseFloat(match[1]);
+      const unit = match[2];
+
+      switch (unit) {
+        case 'KB': return value * 1024;
+        case 'MB': return value * 1024 * 1024;
+        case 'GB': return value * 1024 * 1024 * 1024;
+        default: return value;
+      }
+    }
+  </script>
+</body>
+</html>

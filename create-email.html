@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintech CRM - Compose Email</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+      <div class="brand">
+            <div class="badge-brand"> <img src="assets/images/sodetsologo.jpg" width="50" height="50"></div>
+            <div>
+                <div class="fw-bold company">SODETSO CRM</div>
+                <small class="company">Management System</small>
+            </div>
+        </div>
+
+    <nav class="nav-section">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+      <a href="leads.html" class="nav-link">
+        <i class="fas fa-users"></i>
+        Leads
+      </a>
+      <a href="interactions.html" class="nav-link active">
+        <i class="fas fa-comments"></i>
+        Interactions
+      </a>
+      <a href="deals.html" class="nav-link">
+        <i class="fas fa-handshake"></i>
+        Deals
+      </a>
+      <a href="documents.html" class="nav-link">
+        <i class="fas fa-file-alt"></i>
+        Documents
+      </a>
+      <a href="support.html" class="nav-link">
+        <i class="fas fa-headset"></i>
+        Support
+      </a>
+      <a href="users.html" class="nav-link">
+        <i class="fas fa-user-cog"></i>
+        Users
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="topbar">
+      <h1 class="page-title">Compose Email</h1>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="fas fa-envelope text-info me-2"></i>Email Details</h5>
+        </div>
+        <div class="card-body">
+          <form id="emailForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="emailType" class="form-label">Email Type <span class="text-danger">*</span></label>
+                  <select class="form-select" id="emailType" required>
+                    <option value="">Select Email Type</option>
+                    <option value="outbound">Outbound Email</option>
+                    <option value="inbound">Inbound Email</option>
+                    <option value="follow-up">Follow-up Email</option>
+                    <option value="marketing">Marketing Email</option>
+                    <option value="newsletter">Newsletter</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="priority" class="form-label">Priority</label>
+                  <select class="form-select" id="priority">
+                    <option value="normal">Normal</option>
+                    <option value="high">High</option>
+                    <option value="low">Low</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="contactId" class="form-label">Recipient Contact <span class="text-danger">*</span></label>
+                  <select class="form-select" id="contactId" required>
+                    <option value="">Select Contact</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="institutionId" class="form-label">Institution</label>
+                  <select class="form-select" id="institutionId">
+                    <option value="">Select Institution</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="subject" placeholder="Enter email subject..." required>
+            </div>
+
+            <div class="mb-3">
+              <label for="body" class="form-label">Email Body <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="body" rows="8" placeholder="Compose your email message..." required></textarea>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="sendDate" class="form-label">Send Date & Time</label>
+                  <input type="datetime-local" class="form-control" id="sendDate">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select class="form-select" id="status">
+                    <option value="draft">Draft</option>
+                    <option value="sent">Sent</option>
+                    <option value="scheduled">Scheduled</option>
+                    <option value="failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="attachments" class="form-label">Attachments</label>
+              <input type="file" class="form-control" id="attachments" multiple>
+              <div class="form-text">Select multiple files if needed</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="responseExpected" class="form-label">Response Expected</label>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="responseExpected">
+                <label class="form-check-label" for="responseExpected">
+                  Expect response from recipient
+                </label>
+              </div>
+            </div>
+
+            <div class="row" id="responseSection" style="display: none;">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="expectedResponseDate" class="form-label">Expected Response Date</label>
+                  <input type="datetime-local" class="form-control" id="expectedResponseDate">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="followUpAction" class="form-label">Follow-up Action</label>
+                  <select class="form-select" id="followUpAction">
+                    <option value="">Select Action</option>
+                    <option value="call">Schedule Call</option>
+                    <option value="meeting">Schedule Meeting</option>
+                    <option value="email">Send Follow-up Email</option>
+                    <option value="task">Create Task</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+              <a href="interactions.html" class="btn btn-secondary">
+                <i class="fas fa-times me-1"></i>
+                Cancel
+              </a>
+              <button type="submit" class="btn btn-info">
+                <i class="fas fa-paper-plane me-1"></i>
+                Send Email
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>&copy; 2024 Fintech CRM. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Populate contacts dropdown
+      const contacts = store.get('contacts');
+      const contactSelect = document.getElementById('contactId');
+      contacts.forEach(contact => {
+        const option = document.createElement('option');
+        option.value = contact.id;
+        option.textContent = `${contact.firstName} ${contact.lastName} (${contact.email})`;
+        contactSelect.appendChild(option);
+      });
+
+      // Populate institutions dropdown
+      const institutions = store.get('institutions');
+      const institutionSelect = document.getElementById('institutionId');
+      institutions.forEach(institution => {
+        const option = document.createElement('option');
+        option.value = institution.id;
+        option.textContent = institution.name;
+        institutionSelect.appendChild(option);
+      });
+
+      // Set default send date to now
+      document.getElementById('sendDate').value = new Date().toISOString().slice(0, 16);
+
+      // Handle response expected checkbox
+      document.getElementById('responseExpected').addEventListener('change', function() {
+        const responseSection = document.getElementById('responseSection');
+        responseSection.style.display = this.checked ? 'block' : 'none';
+      });
+
+      // Handle form submission
+      document.getElementById('emailForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const contactId = document.getElementById('contactId').value;
+        const contact = contacts.find(c => c.id === contactId);
+        const institutionId = document.getElementById('institutionId').value;
+        const institution = institutions.find(i => i.id === institutionId);
+
+        const emailData = {
+          id: Date.now().toString(),
+          type: document.getElementById('emailType').value,
+          priority: document.getElementById('priority').value,
+          contactId: contactId,
+          contactName: contact ? `${contact.firstName} ${contact.lastName}` : '',
+          contactEmail: contact ? contact.email : '',
+          institutionId: institutionId,
+          institutionName: institution ? institution.name : '',
+          subject: document.getElementById('subject').value,
+          body: document.getElementById('body').value,
+          sendDate: document.getElementById('sendDate').value,
+          status: document.getElementById('status').value,
+          attachments: [], // Would handle file uploads in real implementation
+          responseExpected: document.getElementById('responseExpected').checked,
+          expectedResponseDate: document.getElementById('expectedResponseDate').value,
+          followUpAction: document.getElementById('followUpAction').value,
+          createdAt: new Date().toISOString()
+        };
+
+        const emails = store.get('emails');
+        emails.push(emailData);
+        store.set('emails', emails);
+
+        alert('Email sent successfully!');
+        window.location.href = 'interactions.html';
+      });
+    });
+  </script>
+</body>
+</html>

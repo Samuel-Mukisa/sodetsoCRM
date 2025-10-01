@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintech CRM - Leads</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="brand">
+            <div class="badge-brand"> <img src="assets/images/sodetsologo.jpg" width="50" height="50"></div>
+            <div>
+                <div class="fw-bold company">SODETSO CRM</div>
+                <small class="company">Management System</small>
+            </div>
+        </div>
+    
+    <nav class="nav-section">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+      <a href="leads.html" class="nav-link active">
+        <i class="fas fa-users"></i>
+        Leads
+      </a>
+      <a href="interactions.html" class="nav-link">
+        <i class="fas fa-comments"></i>
+        Interactions
+      </a>
+      <a href="deals.html" class="nav-link">
+        <i class="fas fa-handshake"></i>
+        Deals
+      </a>
+      <a href="documents.html" class="nav-link">
+        <i class="fas fa-file-alt"></i>
+        Documents
+      </a>
+      <a href="support.html" class="nav-link">
+        <i class="fas fa-headset"></i>
+        Support
+      </a>
+      <a href="users.html" class="nav-link">
+        <i class="fas fa-user-cog"></i>
+        Users
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="topbar">
+      <h1 class="page-title">Leads Management</h1>
+    </div>
+
+    <div class="content-wrapper">
+      <!-- Leads Tabs -->
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs" id="leadsTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="institutions-tab" data-bs-toggle="tab" data-bs-target="#institutions" type="button" role="tab" aria-controls="institutions" aria-selected="true">
+                <i class="fas fa-building me-2"></i>
+                Financial Institutions
+                <span class="badge bg-primary ms-2" id="institutionsCount">0</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="contacts-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">
+                <i class="fas fa-user me-2"></i>
+                Contacts
+                <span class="badge bg-primary ms-2" id="contactsCount">0</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="leadsTabContent">
+            <!-- Institutions Tab -->
+            <div class="tab-pane fade show active" id="institutions" role="tabpanel" aria-labelledby="institutions-tab">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Financial Institutions</h5>
+                <div>
+                  <button class="btn btn-outline-secondary btn-sm me-2" onclick="exportInstitutions()">Export CSV</button>
+                  <input type="file" id="importInstitutions" accept=".csv" style="display:none;" onchange="importInstitutions(this)">
+                  <button class="btn btn-outline-secondary btn-sm me-2" onclick="document.getElementById('importInstitutions').click()">Import CSV</button>
+                  <button class="btn btn-brand btn-sm" data-bs-toggle="modal" data-bs-target="#institutionModal">
+                    <i class="fas fa-plus me-1"></i>
+                    Add Institution
+                  </button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover" id="institutionsTable">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Location</th>
+                      <th>Loan Portfolio</th>
+                      <th>Branches</th>
+                      <th>Clients</th>
+                      <th>Email</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Institutions will be populated by JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Contacts Tab -->
+            <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Contacts</h5>
+                <div>
+                  <button class="btn btn-outline-secondary btn-sm me-2" onclick="exportContacts()">Export CSV</button>
+                  <input type="file" id="importContacts" accept=".csv" style="display:none;" onchange="importContacts(this)">
+                  <button class="btn btn-outline-secondary btn-sm me-2" onclick="document.getElementById('importContacts').click()">Import CSV</button>
+                  <button class="btn btn-outline-brand btn-sm" data-bs-toggle="modal" data-bs-target="#contactModal">
+                    <i class="fas fa-plus me-1"></i>
+                    Add Contact
+                  </button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover" id="contactsTable">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Job Title</th>
+                      <th>Primary Phone</th>
+                      <th>Email</th>
+                      <th>Institution</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Contacts will be populated by JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>&copy; 2024 Fintech CRM. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <!-- Institution Modal -->
+  <div class="modal fade" id="institutionModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Financial Institution</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form onsubmit="handleInstitutionForm(event)">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Institution Name *</label>
+                <input type="text" class="form-control" name="name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Location *</label>
+                <input type="text" class="form-control" name="location" required>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Loan Portfolio</label>
+                <input type="text" class="form-control" name="loanPortfolio" placeholder="e.g., KES 50M">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Savings</label>
+                <input type="text" class="form-control" name="savings" placeholder="e.g., KES 100M">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Shares</label>
+                <input type="text" class="form-control" name="shares" placeholder="e.g., KES 20M">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Products Interested In</label>
+                <input type="text" class="form-control" name="productsInterested" placeholder="e.g., Loans, Savings">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <label class="form-label">Number of Branches</label>
+                <input type="number" class="form-control" name="branches">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Number of Clients</label>
+                <input type="number" class="form-control" name="clients">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Current System in Use</label>
+                <input type="text" class="form-control" name="currentSystem" placeholder="e.g., Legacy Core Banking">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Email Address of Institution</label>
+                <input type="email" class="form-control" name="email">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Institution Phone Contacts</label>
+                <input type="tel" class="form-control" name="phone">
+              </div>
+            </div>
+            <div class="mt-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" name="description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-brand">Add Institution</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Contact</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form onsubmit="handleContactForm(event)">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Name *</label>
+                <input type="text" class="form-control" name="name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Job Title *</label>
+                <input type="text" class="form-control" name="jobTitle" required>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Location</label>
+                <input type="text" class="form-control" name="location">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Institution Name</label>
+                <select class="form-select" name="institutionName">
+                  <option value="">Select Institution</option>
+                  <!-- Institutions will be populated by JavaScript -->
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Primary Phone Number</label>
+                <input type="tel" class="form-control" name="primaryPhone">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Secondary Phone Number</label>
+                <input type="tel" class="form-control" name="secondaryPhone">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Personal Email</label>
+                <input type="email" class="form-control" name="personalEmail">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">WhatsApp Number</label>
+                <input type="tel" class="form-control" name="whatsapp">
+              </div>
+            </div>
+            <div class="mt-3">
+              <label class="form-label">Marketing Channel</label>
+              <select class="form-select" name="marketingChannel">
+                <option value="">Select Channel</option>
+                <option value="Email">Email</option>
+                <option value="Phone">Phone</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Referral">Referral</option>
+              </select>
+            </div>
+            <div class="mt-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" name="description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-brand">Add Contact</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    let editingInstitutionId = null;
+    let editingContactId = null;
+
+    // Populate institution dropdown in contact modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const institutionSelect = document.querySelector('select[name="institutionName"]');
+      const institutions = store.get('institutions');
+      institutionSelect.innerHTML = '<option value="">Select Institution</option>' +
+        institutions.map(inst => `<option value="${inst.name}">${inst.name}</option>`).join('');
+
+      // Update counts
+      document.getElementById('institutionsCount').textContent = institutions.length;
+      document.getElementById('contactsCount').textContent = store.get('contacts').length;
+
+      // Check for edit params
+      const urlParams = new URLSearchParams(window.location.search);
+      editingInstitutionId = urlParams.get('editInstitution');
+      editingContactId = urlParams.get('editContact');
+
+      if (editingInstitutionId) {
+        const institution = store.get('institutions').find(inst => inst.id === editingInstitutionId);
+        if (institution) {
+          // Populate form
+          const form = document.querySelector('#institutionModal form');
+          form.dataset.editingId = editingInstitutionId;
+          document.querySelector('#institutionModal input[name="name"]').value = institution.name;
+          document.querySelector('#institutionModal input[name="location"]').value = institution.location;
+          document.querySelector('#institutionModal input[name="loanPortfolio"]').value = institution.loanPortfolio;
+          document.querySelector('#institutionModal input[name="savings"]').value = institution.savings;
+          document.querySelector('#institutionModal input[name="shares"]').value = institution.shares;
+          document.querySelector('#institutionModal input[name="productsInterested"]').value = institution.productsInterested;
+          document.querySelector('#institutionModal input[name="branches"]').value = institution.branches;
+          document.querySelector('#institutionModal input[name="clients"]').value = institution.clients;
+          document.querySelector('#institutionModal input[name="email"]').value = institution.email;
+          document.querySelector('#institutionModal input[name="phone"]').value = institution.phone;
+          document.querySelector('#institutionModal input[name="currentSystem"]').value = institution.currentSystem;
+          document.querySelector('#institutionModal textarea[name="description"]').value = institution.description;
+
+          // Update modal
+          document.querySelector('#institutionModal .modal-title').textContent = 'Edit Institution';
+          document.querySelector('#institutionModal button[type="submit"]').textContent = 'Update Institution';
+
+          // Show modal
+          new bootstrap.Modal(document.getElementById('institutionModal')).show();
+        }
+      }
+
+      if (editingContactId) {
+        const contact = store.get('contacts').find(cont => cont.id === editingContactId);
+        if (contact) {
+          // Populate form
+          const form = document.querySelector('#contactModal form');
+          form.dataset.editingId = editingContactId;
+          document.querySelector('#contactModal input[name="name"]').value = contact.name;
+          document.querySelector('#contactModal input[name="jobTitle"]').value = contact.jobTitle;
+          document.querySelector('#contactModal input[name="location"]').value = contact.location;
+          document.querySelector('#contactModal select[name="institutionName"]').value = contact.institutionName;
+          document.querySelector('#contactModal input[name="primaryPhone"]').value = contact.primaryPhone;
+          document.querySelector('#contactModal input[name="secondaryPhone"]').value = contact.secondaryPhone;
+          document.querySelector('#contactModal input[name="personalEmail"]').value = contact.personalEmail;
+          document.querySelector('#contactModal input[name="whatsapp"]').value = contact.whatsapp;
+          document.querySelector('#contactModal select[name="marketingChannel"]').value = contact.marketingChannel;
+          document.querySelector('#contactModal textarea[name="description"]').value = contact.description;
+
+          // Update modal
+          document.querySelector('#contactModal .modal-title').textContent = 'Edit Contact';
+          document.querySelector('#contactModal button[type="submit"]').textContent = 'Update Contact';
+
+          // Show modal
+          new bootstrap.Modal(document.getElementById('contactModal')).show();
+        }
+      }
+
+      // Reset modal titles on show if not editing
+      document.getElementById('institutionModal').addEventListener('show.bs.modal', function() {
+        if (!this.querySelector('form').dataset.editingId) {
+          this.querySelector('.modal-title').textContent = 'Add Institution';
+          this.querySelector('button[type="submit"]').textContent = 'Add Institution';
+        }
+      });
+
+      document.getElementById('contactModal').addEventListener('show.bs.modal', function() {
+        if (!this.querySelector('form').dataset.editingId) {
+          this.querySelector('.modal-title').textContent = 'Add Contact';
+          this.querySelector('button[type="submit"]').textContent = 'Add Contact';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

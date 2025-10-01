@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintech CRM - Log Activity</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+     <div class="brand">
+            <div class="badge-brand"> <img src="assets/images/sodetsologo.jpg" width="50" height="50"></div>
+            <div>
+                <div class="fw-bold company">SODETSO CRM</div>
+                <small class="company">Management System</small>
+            </div>
+        </div>
+
+    <nav class="nav-section">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+      <a href="leads.html" class="nav-link">
+        <i class="fas fa-users"></i>
+        Leads
+      </a>
+      <a href="interactions.html" class="nav-link active">
+        <i class="fas fa-comments"></i>
+        Interactions
+      </a>
+      <a href="deals.html" class="nav-link">
+        <i class="fas fa-handshake"></i>
+        Deals
+      </a>
+      <a href="support.html" class="nav-link">
+        <i class="fas fa-headset"></i>
+        Support
+      </a>
+      <a href="users.html" class="nav-link">
+        <i class="fas fa-user-cog"></i>
+        Users
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="topbar">
+      <h1 class="page-title">Log Activity</h1>
+      <a href="interactions.html" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Back to Interactions
+      </a>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="fas fa-history text-primary me-2"></i>Activity Details</h5>
+        </div>
+        <div class="card-body">
+          <form onsubmit="handleActivityForm(event)">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Activity Type *</label>
+                <select class="form-select" name="type" required>
+                  <option value="">Select Type</option>
+                  <option value="Call">Call</option>
+                  <option value="Meeting">Meeting</option>
+                  <option value="Email">Email</option>
+                  <option value="SMS">SMS</option>
+                  <option value="Note">Note</option>
+                  <option value="Site Visit">Site Visit</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Subject/Title *</label>
+                <input type="text" class="form-control" name="title" placeholder="Activity subject" required>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-3">
+                <label class="form-label">Start Date & Time *</label>
+                <input type="datetime-local" class="form-control" name="startDateTime" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">End Date & Time</label>
+                <input type="datetime-local" class="form-control" name="endDateTime">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Duration (minutes)</label>
+                <input type="number" class="form-control" name="duration" placeholder="e.g., 30">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Communication Channel</label>
+                <select class="form-select" name="communicationChannel">
+                  <option value="">Select Channel</option>
+                  <option value="Phone">Phone</option>
+                  <option value="Email">Email</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="SMS">SMS</option>
+                  <option value="In-Person">In-Person</option>
+                  <option value="Video Call">Video Call</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Location (for meetings/visits)</label>
+                <input type="text" class="form-control" name="location" placeholder="Meeting location or address">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Outcome/Result *</label>
+                <select class="form-select" name="outcome" required>
+                  <option value="">Select Outcome</option>
+                  <option value="Positive">Positive</option>
+                  <option value="Neutral">Neutral</option>
+                  <option value="Negative">Negative</option>
+                  <option value="Scheduled Follow-up">Scheduled Follow-up</option>
+                  <option value="No Response">No Response</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Internal Participants (Team members)</label>
+                <input type="text" class="form-control" name="internalParticipants" placeholder="e.g., John Doe, Jane Smith">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">External Participants (Contacts)</label>
+                <input type="text" class="form-control" name="externalParticipants" placeholder="e.g., Contact names">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <label class="form-label">Related Contact</label>
+                <select class="form-select" name="contactName">
+                  <option value="">Select Contact</option>
+                  <!-- Contacts will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Related Institution</label>
+                <select class="form-select" name="institutionName">
+                  <option value="">Select Institution</option>
+                  <!-- Institutions will be populated by JavaScript -->
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Related Deal</label>
+                <select class="form-select" name="relatedDeal">
+                  <option value="">Select Deal</option>
+                  <!-- Deals will be populated by JavaScript -->
+                </select>
+              </div>
+            </div>
+            <div class="mt-3">
+              <label class="form-label">Description/Notes *</label>
+              <textarea class="form-control" name="notes" rows="3" placeholder="Detailed description of the activity..." required></textarea>
+            </div>
+            <div class="mt-3">
+              <label class="form-label">Next Steps</label>
+              <textarea class="form-control" name="nextSteps" rows="2" placeholder="What are the next steps..."></textarea>
+            </div>
+            <div class="mt-3">
+              <label class="form-label">Attachments</label>
+              <input type="file" class="form-control" name="attachments" multiple>
+              <small class="text-muted">You can select multiple files</small>
+            </div>
+            <div class="mt-4 d-flex gap-2">
+              <button type="submit" class="btn btn-brand">
+                <i class="fas fa-save me-2"></i>Log Activity
+              </button>
+              <a href="interactions.html" class="btn btn-outline-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>&copy; 2024 Fintech CRM. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Populate dropdowns
+    document.addEventListener('DOMContentLoaded', function() {
+      const institutionSelects = document.querySelectorAll('select[name="institutionName"]');
+      const contactSelects = document.querySelectorAll('select[name="contactName"]');
+      const dealSelects = document.querySelectorAll('select[name="relatedDeal"]');
+
+      const institutions = store.get('institutions');
+      const contacts = store.get('contacts');
+      const deals = store.get('deals');
+
+      const institutionOptions = '<option value="">Select Institution</option>' +
+        institutions.map(inst => `<option value="${inst.name}">${inst.name}</option>`).join('');
+
+      const contactOptions = '<option value="">Select Contact</option>' +
+        contacts.map(contact => `<option value="${contact.name}">${contact.name}</option>`).join('');
+
+      const dealOptions = '<option value="">Select Deal</option>' +
+        deals.map(deal => `<option value="${deal.name}">${deal.name}</option>`).join('');
+
+      institutionSelects.forEach(select => select.innerHTML = institutionOptions);
+      contactSelects.forEach(select => select.innerHTML = contactOptions);
+      dealSelects.forEach(select => select.innerHTML = dealOptions);
+    });
+  </script>
+</body>
+</html>

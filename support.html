@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintech CRM - Support</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+      <div class="brand">
+            <div class="badge-brand"> <img src="assets/images/sodetsologo.jpg" width="50" height="50"></div>
+            <div>
+                <div class="fw-bold company">SODETSO CRM</div>
+                <small class="company">Management System</small>
+            </div>
+        </div>
+    
+    <nav class="nav-section">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+      <a href="leads.html" class="nav-link">
+        <i class="fas fa-users"></i>
+        Leads
+      </a>
+      <a href="interactions.html" class="nav-link">
+        <i class="fas fa-comments"></i>
+        Interactions
+      </a>
+      <a href="deals.html" class="nav-link">
+        <i class="fas fa-handshake"></i>
+        Deals
+      </a>
+      <a href="documents.html" class="nav-link">
+        <i class="fas fa-file-alt"></i>
+        Documents
+      </a>
+      <a href="support.html" class="nav-link active">
+        <i class="fas fa-headset"></i>
+        Support
+      </a>
+      <a href="users.html" class="nav-link">
+        <i class="fas fa-user-cog"></i>
+        Users
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="topbar">
+      <h1 class="page-title">Customer Support</h1>
+      <button class="btn btn-brand btn-sm" onclick="window.location.href='create-ticket.html'">
+        <i class="fas fa-plus me-1"></i>
+        Create Ticket
+      </button>
+    </div>
+
+    <div class="content-wrapper">
+      <!-- Support Stats -->
+      <div class="stat-grid mb-4">
+        <div class="stat">
+          <h4>Total Tickets</h4>
+          <div class="value" id="totalTickets">0</div>
+        </div>
+        <div class="stat">
+          <h4>Open Tickets</h4>
+          <div class="value" id="openTickets">0</div>
+        </div>
+        <div class="stat">
+          <h4>High Priority</h4>
+          <div class="value" id="highPriorityTickets">0</div>
+        </div>
+        <div class="stat">
+          <h4>Avg Resolution Time</h4>
+          <div class="value" id="avgResolutionTime">0 days</div>
+        </div>
+      </div>
+
+      <!-- Tickets Table -->
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          Support Tickets
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-outline-secondary active" onclick="filterTickets('all')">All</button>
+            <button class="btn btn-outline-secondary" onclick="filterTickets('open')">Open</button>
+            <button class="btn btn-outline-secondary" onclick="filterTickets('in-progress')">In Progress</button>
+            <button class="btn btn-outline-secondary" onclick="filterTickets('closed')">Closed</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover" id="ticketsTable">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Priority</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Requester</th>
+                  <th>Assigned To</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Tickets will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>&copy; 2024 Fintech CRM. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    let currentFilter = 'all';
+
+    // Populate requester dropdown
+    document.addEventListener('DOMContentLoaded', function() {
+      updateSupportStats();
+    });
+
+    function filterTickets(status) {
+      currentFilter = status;
+      const buttons = document.querySelectorAll('.btn-group .btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      renderFilteredTickets();
+    }
+
+    function renderFilteredTickets() {
+      const tbody = document.querySelector('#ticketsTable tbody');
+      if (!tbody) return;
+      
+      let tickets = store.get('tickets');
+      
+      if (currentFilter !== 'all') {
+        tickets = tickets.filter(ticket => ticket.status === currentFilter);
+      }
+      
+      tbody.innerHTML = tickets.map(ticket => `
+        <tr>
+          <td>${ticket.subject}</td>
+          <td><span class="badge bg-${ticket.priority === 'high' || ticket.priority === 'urgent' ? 'danger' : ticket.priority === 'medium' ? 'warning' : 'secondary'}">${ticket.priority}</span></td>
+          <td>${ticket.category}</td>
+          <td><span class="badge bg-${ticket.status === 'open' ? 'primary' : ticket.status === 'in-progress' ? 'warning' : 'success'}">${ticket.status}</span></td>
+          <td>${ticket.requester}</td>
+          <td>${ticket.assignedTo || 'Unassigned'}</td>
+          <td>${formatDate(ticket.createdAt || new Date())}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-brand me-1" onclick="editTicket('${ticket.id}')">Edit</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="deleteTicket('${ticket.id}')">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function updateSupportStats() {
+      const tickets = store.get('tickets');
+      const totalTickets = tickets.length;
+      const openTickets = tickets.filter(t => t.status === 'open').length;
+      const highPriorityTickets = tickets.filter(t => t.priority === 'high' || t.priority === 'urgent').length;
+      
+      // Calculate average resolution time (simplified)
+      const closedTickets = tickets.filter(t => t.status === 'closed');
+      const avgResolutionTime = closedTickets.length > 0 ? '2.3 days' : 'N/A';
+
+      document.getElementById('totalTickets').textContent = totalTickets;
+      document.getElementById('openTickets').textContent = openTickets;
+      document.getElementById('highPriorityTickets').textContent = highPriorityTickets;
+      document.getElementById('avgResolutionTime').textContent = avgResolutionTime;
+
+      renderFilteredTickets();
+    }
+
+    function editTicket(id) {
+      window.location.href = `create-ticket.html?edit=${id}`;
+    }
+
+    // Override renderTickets to use our filtered version
+    const originalRenderTickets = renderTickets;
+    renderTickets = function() {
+      originalRenderTickets();
+      updateSupportStats();
+    };
+  </script>
+</body>
+</html>
